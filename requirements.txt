@@ -1,0 +1,4 @@
+requests==2.31.0
+pandas==2.2.0
+pandas-gbq==0.20.0
+google-auth==2.27.0
