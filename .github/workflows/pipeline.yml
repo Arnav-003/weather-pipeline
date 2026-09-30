@@ -1,0 +1,27 @@
+name: Scheduled Weather ETL Pipeline
+
+on:
+  schedule:
+    - cron: "0 * * * *" # Automatically executes at the start of every hour
+  workflow_dispatch: # Enables a manual "Run" trigger button in the UI
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Initialize Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      - name: Install Project Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Extraction and Ingestion Script
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: python extract_load.py
