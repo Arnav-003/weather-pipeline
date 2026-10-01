@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: weather_raw
+    database: weather-de-project-510215
+    tables:
+      - name: current_conditions
