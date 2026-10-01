@@ -2,8 +2,8 @@
 
 select
     fetched_at,
-    -- Maps your exact BigQuery 'readings' column to a clean timestamp name
-    cast(readings as timestamp) as reading_timestamp, 
+        -- Safely reads the text format 'YYYY-MM-DDTHH:MM' from the API
+    parse_timestamp('%Y-%m-%dT%H:%M', readings) as reading_timestamp, 
     temperature as temp_celsius,
     (temperature * 9/5) + 32 as temp_fahrenheit,
     windspeed as wind_speed_kmh,
